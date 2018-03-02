@@ -9,9 +9,9 @@ target_trajectory_x = target_trajectory[:, 0]
 target_trajectory_y = target_trajectory[:, 1]
 
 lr = 0.5    # learning rate
-kernel_width = 0.001    # kernel width
-epoch_num = 10  # number of learning epochs
-kernel_num = 10
+kernel_width = 0.05    # kernel width
+epoch_num = 50  # number of learning epochs
+kernel_num = 100
 
 Wx = [0 for x in range(epoch_num)]  # x target trajectory
 Wy = [0 for x in range(epoch_num)]  # y target trajectory
@@ -38,12 +38,14 @@ for Ci in range(epoch_num):
 Wx = Wx - Wx[0]
 Wy = Wy - Wy[0]
 
+
+
 # save trajectory to a file
 data = np.array([Wx, Wy])
 np.savetxt('trajectory.dat', data.T, fmt='%12.6f %12.6f')
 
 # plot trajectories
-plt.plot(Wx, Wy, ' b')
+plt.plot(trajectory_x, trajectory_y, ' r')
 plt.xlabel('Trajectory X')
 plt.ylabel('Trajectory Y')
 plt.show()
