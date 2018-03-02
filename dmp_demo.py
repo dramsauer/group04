@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 w = np.loadtxt('weights.dat')
 
 lr = 0.5    # learning rate
-kernel_num = 10 # number of kernels
+kernel_num = 10  # number of kernels
 kernel_width = 0.001    # kernel width
 epoch_num = 10  # number of learning epochs
 
