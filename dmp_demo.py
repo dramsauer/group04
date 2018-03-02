@@ -2,12 +2,24 @@ import dmp
 import numpy as np
 import matplotlib.pyplot as plt
 
-w = np.loadtxt('weights.dat')
+# w = np.loadtxt('weights.dat')
+
+target_trajectory = np.loadtxt('hello.dat')
+target_trajectory_x = target_trajectory[:, 0]
+target_trajectory_y = target_trajectory[:, 1]
 
 lr = 0.5    # learning rate
 kernel_num = 10  # number of kernels
 kernel_width = 0.001    # kernel width
 epoch_num = 10  # number of learning epochs
+
+Wx = [0 for x in range(epoch_num)]  # x target trajectory
+Wy = [0 for x in range(epoch_num)]  # y target trajectory
+
+for Ci in range(epoch_num):
+    for Cwxi in range(Wx):
+        Wx[Cwxi] += lr * (target_trajectory_x[Cwxi])
+
 
 Sx = 0.95  # start X
 Sy = 0.75  # start Y
@@ -17,9 +29,9 @@ T = 70  # movement duration (in steps)
 s0 = 0.03  # kernel width
 
 # generate X trajectory
-X = dmp.generate_trajectory(Sx, Gx, T, w[:, 0], s0)
+X = dmp.generate_trajectory(Sx, Gx, T, Wx, s0)
 # generate Y trajectory
-Y = dmp.generate_trajectory(Sy, Gy, T, w[:, 1], s0)
+Y = dmp.generate_trajectory(Sy, Gy, T, Wy, s0)
 
 # save trajectory to a file
 data = np.array([X, Y])
