@@ -9,17 +9,12 @@ target_trajectory_x = target_trajectory[:, 0]
 target_trajectory_y = target_trajectory[:, 1]
 
 lr = 0.5    # learning rate
-kernel_num = 10  # number of kernels
 kernel_width = 0.001    # kernel width
 epoch_num = 10  # number of learning epochs
+kernel_num = 10
 
 Wx = [0 for x in range(epoch_num)]  # x target trajectory
 Wy = [0 for x in range(epoch_num)]  # y target trajectory
-
-for Ci in range(epoch_num):
-    for Cwxi in range(Wx):
-        Wx[Cwxi] += lr * (target_trajectory_x[Cwxi])
-
 
 Sx = 0.95  # start X
 Sy = 0.75  # start Y
@@ -28,17 +23,27 @@ Gy = 0.10  # goal Y
 T = 70  # movement duration (in steps)
 s0 = 0.03  # kernel width
 
-# generate X trajectory
-X = dmp.generate_trajectory(Sx, Gx, T, Wx, s0)
-# generate Y trajectory
-Y = dmp.generate_trajectory(Sy, Gy, T, Wy, s0)
+lin_k = np.linspace(0, T - 1, kernel_num)
+
+for Ci in range(epoch_num):
+    for k in lin_k:
+        k = int(k)
+        trajectory_x = np.array(dmp.generate_trajectory(Sx, Gx, T, Wx, s0))
+        trajectory_y = np.array(dmp.generate_trajectory(Sx, Gx, T, Wy, s0))
+        Wx[Ci] += lr * (target_trajectory_x[k] - trajectory_x[k])
+        Wy[Ci] += lr * (target_trajectory_y[k] - trajectory_y[k])
+
+
+# Normalization
+Wx = Wx - Wx[0]
+Wy = Wy - Wy[0]
 
 # save trajectory to a file
-data = np.array([X, Y])
+data = np.array([Wx, Wy])
 np.savetxt('trajectory.dat', data.T, fmt='%12.6f %12.6f')
 
 # plot trajectories
-plt.plot(X, Y, ' b')
+plt.plot(Wx, Wy, ' b')
 plt.xlabel('Trajectory X')
 plt.ylabel('Trajectory Y')
 plt.show()
