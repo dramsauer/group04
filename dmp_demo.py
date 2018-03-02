@@ -31,10 +31,10 @@ plt.xlabel('Trajectory X')
 plt.ylabel('Trajectory Y')
 plt.show()
 
-##compute squared velocity
+# compute squared velocity
 # V=np.sqrt( np.array(pow(np.array(np.diff(X)),2) + pow(np.array(np.diff(Y)),2)) )
 
-##signal upsampling via interpolation
+# signal upsampling via interpolation
 # t=np.arange(0,T)
 # t_new=np.arange(0,T-1,0.05)
 # fx = intrp.interp1d(t, X, 'cubic')
