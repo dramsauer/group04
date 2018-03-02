@@ -1,27 +1,27 @@
-
 import dmp
 import numpy as np
 import matplotlib.pyplot as plt
 
 w = np.loadtxt('weights.dat')
-    
-Sx =0.95  # start X
-Sy =0.75  # start Y
-Gx =1.35  # goal X
-Gy =0.10  # goal Y T=7 0  # movement duration (in steps)
-s0= 0.03  # kernel width
+
+Sx = 0.95  # start X
+Sy = 0.75  # start Y
+Gx = 1.35  # goal X
+Gy = 0.10  # goal Y
+T = 70  # movement duration (in steps)
+s0 = 0.03  # kernel width
 
 # generate X trajectory
-X= d mp.generate_trajectory(Sx,Gx,T ,w [:,0 ],s0)
+X = dmp.generate_trajectory(Sx, Gx, T, w[:, 0], s0)
 # generate Y trajectory
-Y= d mp.generate_trajectory(Sy,Gy,T ,w [:,1 ],s0)
+Y = dmp.generate_trajectory(Sy, Gy, T, w[:, 1], s0)
 
 # save trajectory to a file
-data= n p.array([X,Y ])
+data = np.array([X, Y])
 np.savetxt('trajectory.dat', data.T, fmt='%12.6f %12.6f')
 
 # plot trajectories
-plt.plot(X,Y ,' b')
+plt.plot(X, Y, ' b')
 plt.xlabel('Trajectory X')
 plt.ylabel('Trajectory Y')
 plt.show()
