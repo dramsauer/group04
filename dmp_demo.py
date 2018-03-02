@@ -16,9 +16,9 @@ epoch_num = 10  # number of learning epochs
 Wx = [0 for x in range(epoch_num)]  # x target trajectory
 Wy = [0 for x in range(epoch_num)]  # y target trajectory
 
-for k_i in range(epoch_num):    # kernel interation
-    for k_wxi in range(Wx):     # iteration for each weight
-        Wx[k_wxi] += lr * (target_trajectory_x[k_wxi])
+for Ci in range(epoch_num):
+    for Cwxi in range(Wx):
+        Wx[Cwxi] += lr * (target_trajectory_x[Cwxi])
 
 
 Sx = 0.95  # start X
